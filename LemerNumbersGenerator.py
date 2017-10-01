@@ -1,13 +1,14 @@
 class LemerNumbersGenerator:
 
-    def __init__(self, r0, a, m):
+    def __init__(self, r0=0, a=0, m=0):
         self.__r0 = r0
         self.__a = a
         self.__m = m
-        self.__lastGeneratedNumber = self.__r0
+
+        self.__seed = self.__r0
 
     def reset(self):
-        self.__lastGeneratedNumber = self.__r0
+        self.__seed = self.__r0
 
     def set_generator_parameters(self, r0, a, m):
         self.__r0 = r0
@@ -15,6 +16,5 @@ class LemerNumbersGenerator:
         self.__m = m
 
     def next_number(self):
-        r = ((self.__lastGeneratedNumber * self.__a) % self.__m) / self.__m
-        self.__lastGeneratedNumber = r
-        return r
+        self.__seed = (self.__seed * self.__a) % self.__m
+        return self.__seed / self.__m
