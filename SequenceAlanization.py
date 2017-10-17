@@ -109,8 +109,8 @@ def build_bar_chart(sequence, n_intervals):
     y = []
 
     for i in range(0, n_intervals):
-        x.append('{:03.2f} - {:03.2f}'.format(intervals[i][0], intervals[i][1]))
-        y.append(intervals[i][2])
+        x.append('{:03.2f}'.format(intervals[i][1]))
+        y.append(intervals[i][2] / n)
 
     y_pos = np.arange(len(x))
 

@@ -87,6 +87,8 @@ def search_big_period():
     print("a = ", a)
     print("m = ", m)
 
+    build_bar_chart(generated_numbers, 20)
+
 
 def obtain_statistics(params):
     # init generator
@@ -100,7 +102,8 @@ def obtain_statistics(params):
     m = 0
     d = 0
     generated_numbers = []
-    for i in range(0, params.n):
+
+    for i in range(params.n):
         new_number = lemer_generator.next_number()
 
         if i > 0:
@@ -113,7 +116,6 @@ def obtain_statistics(params):
 
         generated_numbers.append(new_number)
 
-    build_bar_chart(generated_numbers, 20)
     count_els_in_quadrant = find_count_elements_located_in_quadrant(generated_numbers)
     periodic_properties = calc_periodical_properties(generated_numbers)
 
@@ -124,6 +126,8 @@ def obtain_statistics(params):
     print("Pi/4 = ", math.pi / 4)
     print("Count pairs located in quadrant to all pairs = ", v)
     print_period_info(periodic_properties, params.n)
+
+    build_bar_chart(generated_numbers, 20)
 
 
 def find_count_elements_located_in_quadrant(sequence):
