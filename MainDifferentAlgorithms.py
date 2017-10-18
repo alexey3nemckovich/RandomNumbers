@@ -33,7 +33,7 @@ def add_even_distribution_args(required_args):
     required_args.add_argument('--b', type=float, help='Right generated numbers bound not including', required=True)
 
 
-def add_gauss_distribution_args(required_args):
+def add_gaussian_distribution_args(required_args):
     required_args.add_argument('--m', type=float, help='Math expectation', required=True)
     required_args.add_argument('--s', type=float, help='Standard deviation', required=True)
 
@@ -44,13 +44,13 @@ def add_exponent_distribution_args(required_args):
 
 def add_hamma_distribution_args(required_args):
     required_args.add_argument('--h', type=float, help='Exponent generator parameter', required=False)
-    required_args.add_argument('--c', type=int, help='Count random numbers to sum', required=False)
+    required_args.add_argument('--c', type=int, help='Count random numbers to multiply', required=False)
 
 
 def add_triangle_distribution_args(required_args):
     required_args.add_argument('--a', type=float, help='Left generated numbers bound including', required=True)
     required_args.add_argument('--b', type=float, help='Right generated numbers bound not including', required=True)
-    required_args.add_argument('--m', type=int, help='Number of distribution density(0/1)', required=True)
+    required_args.add_argument('--alg', type=int, help='Algorithm of selection between random numbers(min/max)', required=True)
 
 
 def add_simpson_distribution_args(required_args):
