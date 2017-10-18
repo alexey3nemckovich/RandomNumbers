@@ -1,4 +1,5 @@
 import math
+from AttribtutedObject import AttributedObject
 from LemerNumbersGenerator import LemerNumbersGenerator
 
 
@@ -88,9 +89,10 @@ class TriangleNumbersGenerator(NumbersGenerator):
 class SimpsonNumbersGenerator(EvenNumbersGenerator):
 
     def __init__(self, parameters):
-        parameters.a = parameters.a / 2
-        parameters.b = parameters.b / 2
-        EvenNumbersGenerator.__init__(self, parameters)
+        args = AttributedObject()
+        args.a = parameters.a / 2
+        args.b = parameters.b / 2
+        EvenNumbersGenerator.__init__(self, args)
 
     def next_number(self):
         r1 = EvenNumbersGenerator.next_number(self)

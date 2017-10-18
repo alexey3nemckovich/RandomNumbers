@@ -1,11 +1,8 @@
 import sys
 import argparse
-import collections
 import math
-from enum import Enum
-from LemerNumbersGenerator import LemerNumbersGenerator
-from SequenceAlanization import SequencePeriodicProperties
-from SequenceAlanization import calc_periodical_properties
+import Generators
+from AttribtutedObject import AttributedObject
 from SequenceAlanization import build_bar_chart
 
 
@@ -23,7 +20,8 @@ def create_distribution_args_parser(distribution_name):
         description=distribution_name + ' distribution'
     )
     required_args = parser.add_argument_group('required named arguments')
-    locals()['add_' + distribution_name + '_distribution_args'](required_args)
+    method_name = 'add_' + distribution_name + '_distribution_args'
+    globals()[method_name](required_args)
     required_args.add_argument('--n', '--count', type=int, help='Count numbers to generate', required=True)
     return parser
 
@@ -50,7 +48,7 @@ def add_hamma_distribution_args(required_args):
 def add_triangle_distribution_args(required_args):
     required_args.add_argument('--a', type=float, help='Left generated numbers bound including', required=True)
     required_args.add_argument('--b', type=float, help='Right generated numbers bound not including', required=True)
-    required_args.add_argument('--alg', type=int, help='Algorithm of selection between random numbers(min/max)', required=True)
+    required_args.add_argument('--alg', help='Algorithm of selection between random numbers(min/max)', required=True)
 
 
 def add_simpson_distribution_args(required_args):
@@ -60,8 +58,23 @@ def add_simpson_distribution_args(required_args):
 
 def prepare_data():
     parser = distribution_type_parser()
-    namespace = parser.parse_known_args(sys.argv[1:])
-    distribution_args_parser = create_distribution_args_parser(namespace[0].name)
+    type_args = parser.parse_args(sys.argv[1:])
+    distribution_name = type_args.name
+    distribution_args_parser = create_distribution_args_parser(distribution_name)
+    while True:
+        try:
+            distribution_args_parser.print_help()
+            args_string = input("Enter parameters: ")
+            args = distribution_args_parser.parse_args(args_string.split())
+            break
+        except:
+            pass
+
+    res = AttributedObject()
+    generator_class_name = "Generators." + distribution_name.title() + "NumbersGenerator"
+    res.generator = eval(generator_class_name)(args)
+    res.n = args.n
+    return res
 
 
 def obtain_statistics(generator, n):
@@ -84,6 +97,7 @@ def obtain_statistics(generator, n):
 
     print("M = ", m)
     print("D = ", d)
+    print("Standard deviation = ", math.sqrt(d))
     build_bar_chart(generated_numbers, 20)
 
 
